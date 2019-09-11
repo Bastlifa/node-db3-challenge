@@ -8,6 +8,7 @@ module.exports =
     add,
     remove,
     update,
+    addStep
 }
 
 function find()
@@ -68,5 +69,15 @@ function remove(id)
         .then(response =>
             {
                 return retScheme
+            })
+}
+
+function addStep(step, scheme_id)
+{
+    return db('steps')
+        .insert({...step, step_number: Number(step.step_number), scheme_id: scheme_id})
+        .then(response =>
+            {
+                return findSteps(scheme_id)
             })
 }
