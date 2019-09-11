@@ -6,7 +6,7 @@ module.exports =
     findById,
     findSteps,
     add,
-
+    remove
 }
 
 function find()
@@ -49,8 +49,13 @@ function add(scheme)
 
 function remove(id)
 {
+    let retScheme = findById(id)
     return db('schemes')
         .where({id})
         .del()
+        .then(response =>
+            {
+                return retScheme
+            })
 
 }
