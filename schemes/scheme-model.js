@@ -22,6 +22,7 @@ function findById(id)
 {
     return db('schemes')
         .where({id})
+        .first()
             .then(scheme => scheme)
 }
 
@@ -39,6 +40,17 @@ function findSteps(id)
 function add(scheme)
 {
     return db('schemes')
-        .insert(scheme, ['id', 'scheme_name'])
-            .then(newScheme => newScheme)
+        .insert(scheme)
+            .then(newSchemeId => 
+                {
+                    return findById(newSchemeId[0])
+                })
+}
+
+function remove(id)
+{
+    return db('schemes')
+        .where({id})
+        .del()
+
 }
